@@ -26,8 +26,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public Result register(@RequestBody User user) {
         log.info(user.getEmail() + ":" + user.getPassword() + ":" + user.getPhone());
-       return "success";
+        if(userService.register(user)) {
+            return Result.success();
+        }
+        return Result.error("手机或邮箱重复");
     }
 }

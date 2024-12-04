@@ -1,12 +1,10 @@
-#配置端口号和服务器地址
+# 配置端口号和服务器地址
 server:
   port: 8080
-  #servlet:
-    #context-path: /ssm
+    #servlet:
+  #context-path: /ssm
 
-#Druid数据源配置
-# 数据源配置
-# 数据源配置
+# Druid数据源配置
 spring:
   datasource:
     ################# JDBC 配置 #################
@@ -61,5 +59,17 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+# 配置MyBatis日志输出
 mybatis:
-  mapper-locations: classpath:/mapper/**/*.xml # 指定xml包
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 使用控制台输出SQL
+  mapper-locations: classpath:/mapper/**/*.xml  # 指定xml包
+
+# 日志配置
+logging:
+  level:
+    org.springframework.jdbc.core: DEBUG       # 打印 Spring JDBC SQL
+    org.mybatis: DEBUG                          # 打印 MyBatis SQL
+    com.alibaba.druid: INFO                    # 打印 Druid SQL 相关日志
+    com.zaxxer.hikari: INFO                     # 打印 Hikari 连接池日志

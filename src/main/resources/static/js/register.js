@@ -100,7 +100,7 @@ $(function() {
 					  function go(){
                            count--;
 						   if(count > 0){
-							   $('#messageTips').html("登录成功，还剩："+count+" 秒跳转到登录页面");
+							   $('#messageTips').html("注册成功，还剩："+count+" 秒跳转到登录页面");
 						   }else{
 							   //跳转登录页面
 							   window.location.href = "/login.html";
