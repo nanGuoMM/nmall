@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.nanguomm.nmall.mapper.UserMapper"> <!-- Mapper接口的全类名 -->
+    <!-- 定义结果映射 -->
+    <resultMap id="userResultMap" type="top.nanguomm.nmall.entity.User">
+        <!-- 映射 user_phone 到 userPhone -->
+        <result property="phone" column="user_phone"/>
+        <!-- 映射 user_email 到 userEmail -->
+        <result property="email" column="user_email"/>
+        <!-- 映射 user_password 到 userPassword -->
+        <result property="password" column="user_password"/>
+    </resultMap>
+
+    <select id="login" resultType="top.nanguomm.nmall.entity.User">
+
+        <!-- 动态SQL实现登录功能 -->
+            SELECT * FROM users
+            WHERE
+            (
+            <choose>
+                <!-- 判断账号是手机号还是邮箱 -->
+                <when test="account != null and account.matches('^\\d{10}$')"> <!-- 如果是手机号，验证10位数字 -->
+                    user_phone = #{account}
+                </when>
+                <when test="account != null and account.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')"> <!-- 如果是邮箱 -->
+                    user_email = #{account}
+                </when>
+                <otherwise>
+                    <!-- 其他情况，可以抛出异常，或者返回空 -->
+                    1 = 0 <!-- 不匹配任何行 -->
+                </otherwise>
+            </choose>
+            )
+            AND user_password = #{password} <!-- 密码验证 -->
+    </select>
+
+</mapper>
