@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="commonCss/nav.css">
+    <link rel="stylesheet" type="text/css" href="commonCss/footer.css">
+    <link rel="stylesheet" type="text/css" href="commonCss/fixedMenu.css">
+    <link rel="stylesheet" type="text/css" href="css/goodsDetails.css">
+    <style type="text/css">
+        .head {
+            width: 70%;
+            height: 100px;
+            margin: 10px auto;
+        }
+
+        .order {
+            width: 60%;
+            height: 80px;
+            margin: 10px auto;
+        }
+
+        .order img {
+            width: 60px;
+            height: 60px;
+            float: left;
+        }
+
+        .order h2 {
+            margin-top: 10px;
+            float: left;
+            color: red;
+            margin-left: 20px;
+        }
+
+        .orderNumber {
+            width: 20%;
+            height: 80px;
+            float: left;
+            color: red;
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+
+        .orderName {
+            width: 20%;
+            height: 80px;
+            float: left;
+            color: red;
+            margin-top: 20px;
+        }
+
+        .detail {
+            width: 10%;
+            height: 80px;
+            float: left;
+            color: red;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .orderdetailMain {
+            width: 60%;
+            margin: 1px auto;
+
+
+        }
+
+        .orderdetailMain .detai_head {
+            width: 100%;
+            height: 31px;
+            border: 1px solid;
+
+        }
+
+        .detai_head .detail_name {
+            width: 33%;
+            height: 100%;
+            text-align: center;
+            border-right: 1px solid;
+            float: left;
+            margin-top: -8px;
+            line-height: 30px;
+        }
+
+        .info {
+            width: 100%;
+            height: 60px;
+        }
+
+        .info .pro_img {
+            width: 32%;
+            height: 60px;
+            text-align: center;
+            float: left;
+        }
+
+        .pro_img img {
+            width: 60px;
+            height: 60px;
+
+        }
+
+        .info .num {
+            width: 32%;
+            height: 60px;
+            color: red;
+            text-align: center;
+            float: left;
+            line-height: 60px;
+            font-size: 20px;
+        }
+
+        .info .price {
+            width: 32%;
+            height: 60px;
+            color: red;
+            text-align: center;
+            float: left;
+            line-height: 60px;
+            font-size: 20px;
+        }
+
+        .paymain {
+            width: 60%;
+            margin: 5px auto;
+            height: 355px;
+        }
+
+        .bootom {
+            width: 60%;
+            height: 100px;
+            margin: 0 auto;
+            text-align: right;
+        }
+
+        .bootom h2 {
+            color: red;
+            float: left;
+            margin-left: 50px;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+
+        $(function () {
+            $(".orderdetailMain").hide();
+            var orderId = getUrlParam('orderId');
+            if (orderId) {
+                var total_amount;
+                var product_name;
+
+                $("#buyNow").click(function () {
+                    $("#out_trade_no").val(orderId);
+                    $("#total_amount").val(total_amount);
+                    // $("#pay_form").submit();
+                    //提交订单发起真实支付
+                    window.location.href = "/alipay?out_trade_no="+orderId+"&total_amount="+total_amount+"&subject="+product_name;
+                })
+                $.ajax({
+                    url: "/order/findOrderById?orderId=" + orderId,
+                    type: "get",
+                    success: function (res) {
+                        if (res.code == 0) {
+                            $(".orderNumber").html('订单号：' + res.data.order_id);
+                            total_amount = res.data.pay_total_price;
+                            product_name = res.data.product_name;
+                            $(".bootom").children("h2").html('总金额：￥' + res.data.pay_total_price);
+                            if(res.data.status==2){
+                                $(".paymain").hide();
+                                $("#buyNow").hide();
+                                $(".order").children("h2").html('订单已完成！');
+                            }
+                        } else {
+                            alert(res.msg);
+                            window.location.href = "/index.html";
+                        }
+                    }
+                })
+                $(".detail").click(function () {
+                    $(".orderdetailMain").children(".info").remove();
+                    $.ajax({
+                        url: "/getOrderDetailByOrderId?orderId=" + orderId, type: "get", success: function (res) {
+                            if (res) {
+                                var data = res.data;
+                                $.each(data, function (index, info) {
+
+                                    var info = `<div class="info">
+                                       <div class="pro_img">
+                                       ${info.pro.productTitle}
+                                       <img src="${info.pro.productImageUrl}"/>
+                                       </div>
+                                       <div class="num"> ${info.detail.quantity}</div>
+                                       <div class="price">￥${info.detail.unitPrice}</div>
+                                       </div>`;
+                                    $(".orderdetailMain").append(info);
+
+                                })
+                                $(".orderdetailMain").show();
+                            }
+
+                        }
+                    })
+                })
+            } else {
+                window.location.href = "/index.html"
+            }
+        })
+    </script>
+</head>
+<body>
+
+<main id="main" class="t">
+    <div class="head">
+        <img src="img/orderConfirm/head.png"/>
+    </div>
+    <div class="order">
+        <img src="img/orderConfirm/ok.png"/>
+        <h2>下单成功，请尽快支付！ </h2>
+        <div class="orderNumber">
+
+        </div>
+        <div class="orderName"></div>
+        <div class="detail">查看详单</div>
+    </div>
+    <div class="orderdetailMain">
+        <div class="detai_head">
+            <div class="detail_name">
+                名称/ 图片
+            </div>
+            <div class="detail_name">
+                订购数量
+            </div>
+            <div class="detail_name">
+                单价
+            </div>
+        </div>
+        <!--        <div class="info">-->
+        <!--            <div class="pro_img">-->
+        <!--                <img src="img/index/rexiaodanping03.png"/>-->
+        <!--            </div>-->
+        <!--            <div class="num"> 3</div>-->
+        <!--            <div class="price">￥1200</div>-->
+    </div>
+    </div>
+    <div class="paymain">
+        <img src="img/orderConfirm/payMain.png"/>
+    </div>
+    <div class="bootom">
+        <h2>总金额：￥1200</h2>
+        <button class="buyBtns" id="buyNow" href="" title=""><span>立即支付</span></button>
+    </div>
+
+</main>
+<form action="alipay" method="GET" id="pay_form" style="display: none">
+    <p>
+        <input type="text" name="out_trade_no"
+               value="202101071010" id="out_trade_no"
+               placeholder="商户订单号">
+    </p>
+    <p>
+        <input type="text" name="total_amount" value="3999" id="total_amount"
+               placeholder="订单总金额">
+    </p>
+    <p>
+        <input type="text" name="subject" value="订单提交" id="subject"
+               placeholder="订单标题">
+    </p>
+    <p>
+        <input type="text" name="body" value="吊炸了" id="body"
+               placeholder="订单描述">
+    </p>
+    <p>
+
+    </p>
+</form>
+<footer id="footer" class="t">
+    <section id="slogan" class="c">
+        <ul id="sloganBox">
+            <li class="sloganInf"><a href="">
+                <i class="sloganIcon"></i>
+                <span class="sloganText">百强企业 品质保证</span>
+            </a></li>
+            <li class="sloganInf"><a href="">
+                <i class="sloganIcon"></i>
+                <span class="sloganText">7天退货品 15天换货</span>
+            </a></li>
+            <li class="sloganInf"><a href="">
+                <i class="sloganIcon"></i>
+                <span class="sloganText">48元起免运费</span>
+            </a></li>
+            <li class="sloganInf"><a href="">
+                <i class="sloganIcon"></i>
+                <span class="sloganText">1000家维修网点 全国联保</span>
+            </a></li>
+        </ul>
+    </section>
+
+    <section id="serviceContainer" class="c">
+        <div id="serviceLeft" class="l">
+            <ul class="serviceTextBox l">
+                <li class="serviceText">购物相关</li>
+                <li class="serviceText"><a href="">购物指南</a></li>
+                <li class="serviceText"><a href="">配送方式</a></li>
+                <li class="serviceText"><a href="">支付方式</a></li>
+                <li class="serviceText"><a href="">常见问题</a></li>
+            </ul>
+            <ul class="serviceTextBox l">
+                <li class="serviceText">保修与退换货</li>
+                <li class="serviceText"><a href="">购物指南</a></li>
+                <li class="serviceText"><a href="">配送方式</a></li>
+                <li class="serviceText"><a href="">退换货流程</a></li>
+                <li class="serviceText"><a href="">保修状态查询</a></li>
+                <li class="serviceText"><a href="">配件防伪查询</a></li>
+            </ul>
+            <ul class="serviceTextBox l">
+                <li class="serviceText">维修与技术支持</li>
+                <li class="serviceText"><a href="">购物指南</a></li>
+                <li class="serviceText"><a href="">配送方式指南</a></li>
+                <li class="serviceText"><a href="">支付方式</a></li>
+                <li class="serviceText"><a href="">华为CBG官网</a></li>
+                <li class="serviceText"><a href="">上门服务</a></li>
+            </ul>
+            <ul class="serviceTextBox l">
+                <li class="serviceText">特色服务</li>
+                <li class="serviceText"><a href="">购物指南</a></li>
+                <li class="serviceText"><a href="">配送方式</a></li>
+                <li class="serviceText"><a href="">支付方式</a></li>
+                <li class="serviceText"><a href="">常见问题</a></li>
+            </ul>
+            <ul class="serviceTextBox l">
+                <li class="serviceText">关于我们</li>
+                <li class="serviceText"><a href="">公司介绍</a></li>
+                <li class="serviceText"><a href="">配送方式</a></li>
+                <li class="serviceText"><a href="">支付方式</a></li>
+                <li class="serviceText"><a href="">常见问题</a></li>
+                <li class="serviceText"><a href="">华为线下门店</a></li>
+                <li class="serviceText"><a href="">荣耀线下门店</a></li>
+            </ul>
+            <ul class="serviceTextBox l">
+                <li class="serviceText">友情链接</li>
+                <li class="serviceText"><a href="">购物指南</a></li>
+                <li class="serviceText"><a href="">配送方式</a></li>
+                <li class="serviceText"><a href="">华为CBG官网</a></li>
+                <li class="serviceText"><a href="">常见问题</a></li>
+                <li class="serviceText"><a href="">花粉俱乐部</a></li>
+            </ul>
+        </div>
+
+        <div id="serviceRight" class="r">
+            <p id="phoneNum">400-088-6888</p>
+            <p class="serviceRightState">7x24小时客服热线（仅收市话费）</p>
+            <p id="serviceRightlittleBox"><a href="" title="">
+                <i></i><span>在线客服</span>
+            </a></p>
+            <p class="serviceRightState">
+                <span class="l">关注Vmall:</span>
+                <a class="serviceRightStateIcon" href="" title=""><i></i></a>
+                <a class="serviceRightStateIcon" href="" title=""><i></i></a>
+                <a class="serviceRightStateIcon" href="" title=""><i></i></a>
+                <a class="serviceRightStateIcon" href="" title=""><i></i></a>
+            </p>
+        </div>
+    </section>
+
+    <section class="c" id="bottomFooter">
+        <img src="img/index/bottomLogo_VMALL.png" alt="">
+
+        <div class="l" id="bottomFooterMid">
+            <ul class="bottomFooterList" id="bottomFooterListTitle">
+                <li id="firstBottomFooterList"><a href="">华为集团</a></li>
+                <li><a href="">华为CBG官网</a></li>
+                <li><a href="">荣耀官网</a></li>
+                <li><a href="">花粉俱乐部</a></li>
+                <li><a href="">华为应用市场</a></li>
+                <li><a href="">ENUI</a></li>
+                <li><a href="">华为终端云空间</a></li>
+                <li><a href="">开发者联盟</a></li>
+                <li><a href="">华为手机版</a></li>
+                <li><a href="">网站地图</a></li>
+            </ul>
+            <img src="img/index/footerText.png" alt="">
+        </div>
+
+        <p id="bottomFooterRight">
+            <a href="" title=""><img src="img/index/footer_yinsirengzheng.jpg" alt=""></a>
+            <a href="" title=""><img src="img/index/footer_yingyezhizhao.png" alt=""></a>
+        </p>
+
+    </section>
+</footer>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册_华为帐号</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <link rel="shortcut icon" href="img/index/favicon.ico">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="js/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        function GetQueryString(name) {
+
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+
+            var r = window.location.search.substr(1).match(reg);
+
+            if (r != null) return unescape(r[2]);
+            return null;
+
+        }
+
+        var productId = GetQueryString("product_id");
+        var unitPrice = GetQueryString("unitPrice");
+        var quantity = GetQueryString("quantity");
+        var parm = window.location.search.substring(1);
+        var obj = localStorage.getItem("user");
+        if(obj == null){
+            alert("当前未登录，请登录！");
+            window.location.href = "/login.html";
+        }
+        var user = JSON.parse(obj);
+        var userId = user.user_id;
+        var product_subtitle = decodeURI(parm.substring(parm.lastIndexOf("=") + 1));
+        jQuery(function () {
+            $("#phoneNumInput").val(product_subtitle);
+            $("#emailInput").val("x" + quantity);
+            $("#passwdInput").val("¥" + unitPrice);
+            $("#againPasswdInput").val(unitPrice * quantity);
+        });
+
+        function SaveOrder() {
+            var order = {userId: users.user_id, productId: productId, quantity: quantity, unitPrice: unitPrice};
+            alert("ok")
+            // $.ajax({
+            //     url: "/orderOperat",
+            //     type: "POST",
+            //     data: order,
+            //     dataType: "json",
+            //     success: function (resp) {
+            //         console.log(resp);
+            //         if (resp.code == 200) {
+            //             location.href = resp.data;
+            //         } else {
+            //             alert(resp.msg)
+            //         }
+            //     }
+            // });
+        }
+    </script>
+</head>
+<body>
+<header id="header" class="t">
+    <div id="headerC" class="c">
+        <img src="img/loginAndRegister/registerLogo.png" alt="">
+        <span>|</span>
+        <a href="index.html" title=""><span id="headerTitle">华为商城</span></a>
+    </div>
+</header><!-- /header -->
+<main id="main" class="t">
+
+    <div id="mianC" class="c">
+        <div class="inputBox">
+            <div class="inputKind" id="phoneNum">
+                标题
+            </div>
+            <input id="phoneNumInput" class="input" type="text" name="" readonly="readonly">
+        </div>
+        <p class="errorTips" id="phoneNumTips">
+        </p>
+
+        <div class="inputBox">
+            <div class="inputKind" id="email">
+                数量
+            </div>
+            <input id="emailInput" class="input" type="text" name="" readonly="readonly">
+        </div>
+        <p class="errorTips" id="emailTips">
+
+        </p>
+
+        <div class="inputBox">
+            <div class="inputKind" id="passwd">
+                单价
+            </div>
+            <input id="passwdInput" class="input" type="text" name="" readonly="readonly">
+        </div>
+        <p class="errorTips" id="passwdTips">
+
+        </p>
+
+        <div class="inputBox">
+            <div class="inputKind" id="againPasswd">
+                总价
+            </div>
+            <input id="againPasswdInput" class="input" type="text" name="" readonly="readonly">
+        </div>
+        <p class="errorTips" id="againPasswdTips">
+
+        </p>
+
+        <p id="registerBtnBox">
+            <button id="registerBtn" onclick="SaveOrder()">提交订单</button>
+        </p>
+    </div>
+</main>
+
+<footer id="footer" class="t">
+    <div class="c" id="footerC">
+        <p>
+            <a href="" title="">华为账号用户协议</a><em>|</em>
+            <a href="" title="">关于华为账户与隐私的声明</a><em>|</em>
+            <a href="" title="">常见问题</a>
+        </p>
+        <p id="declaration">Copyright © 2011-2018 华为软件技术有限公司 版权所有 保留一切权利 苏B2-20070200号 | 苏ICP备09062682号-9
+        </p>
+    </div>
+
+</footer>
+</body>
+</html>

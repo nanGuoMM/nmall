@@ -1,2 +1,65 @@
+#配置端口号和服务器地址
 server:
   port: 8080
+  #servlet:
+    #context-path: /ssm
+
+#Druid数据源配置
+# 数据源配置
+# 数据源配置
+spring:
+  datasource:
+    ################# JDBC 配置 #################
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://nanguomm.top:3306/hmall_db?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: ${DB_PASSWD}
+    ################# 连接池配置 #################
+    druid:
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      ################# 监控配置 #################
+      webStatFilter:
+        enabled: true
+      statViewServlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        # 指定访问druid监控页面的请求映射路径
+        # 开发中一般通过：服务器映射路径/druid/index,来访问监控页面
+        url-pattern: /druid/*
+        # 监控默认是可以直接访问的
+        # 如果有以下配置，那么访问监控页面时会跳转到，控制台管理页面进行登录控制
+        # 控制台管理用户名和密码
+        login-username: druid
+        login-password: ${DB_PASSWD}
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录（控制慢查询sql语句显示为红色提醒）
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml # 指定xml包
