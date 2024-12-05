@@ -153,43 +153,47 @@ $(function() {
 
 	// 改变按钮样式和tab按钮图片和原图、大图第一张图
 	// 参：点击的按钮 原来选择的按钮 按钮类 按钮图片 原图 大图 图片路径前部分 图片路径后缀
-	function chooseGoods(oneGoods, otherGoods, btnsClass, btnsPicClass, originalPic, bigPic, picSrcBefore, picSrcAfter) {
+	function chooseGoods(oneGoods, otherGoods, btnsClass, btnsPicClass, originalPic, bigPic, picImage) {
 		oneGoods.click(function() {
 			oneGoods.addClass('active');
 			otherGoods.removeClass('active');
 			btnsClass.each(function(index, element) {
-				var picNum = index+1;
-				btnsPicClass.eq(index).attr('src', picSrcBefore + picNum + picSrcAfter);	
-				originalPic.attr('src', picSrcBefore + '1' + picSrcAfter);		
-				bigPic.attr('src', picSrcBefore + '1' + picSrcAfter);		
+				btnsPicClass.eq(index).attr('src', picImage);
+				originalPic.attr('src', picImage);
+				bigPic.attr('src',picImage);
 			})	
-			zoomToolSilder(btnsClass, originalPic, bigPic, picSrcBefore, picSrcAfter);
+			zoomToolSilder(btnsClass, originalPic, bigPic, picImage);
 		})
 	}
 
 	// 实现tab切换
 	// 按钮类 原图 放大图片 图片路径前部分 图片路径后缀
-	function zoomToolSilder(btnsClass, originalPic, bigPic, picSrcBefore, picSrcAfter){
+	function zoomToolSilder(btnsClass, originalPic, bigPic, picImage){
 		btnsClass.mouseenter(function() {
 			var nowIndex = btnsClass.index(this);
 			btnsClass.each(function(index, element) {
 				if (index == nowIndex ) {
 					$(element).css('border', '1px solid #ca141d');
-					var picNum = index+1;
-					originalPic.attr('src', picSrcBefore + picNum + picSrcAfter);
-					bigPic.attr('src', picSrcBefore + picNum + picSrcAfter);
+					originalPic.attr('src', picImage);
+					bigPic.attr('src', picImage);
 				} else {
 					$(element).css('border', '1px solid white');
 				}
 			})			
 		})
 	}
+
+	var imageUrl = {};
+	$(document).on('productDataLoaded', function(event, data) {
+		imageUrl = data;
+		zoomToolSilder($('.zoomToolbtns'), $('#originalPicBox img'), $('#zoomToolBox img'), data);
+	});
 	
 	// 解决第一次tab切换
-	zoomToolSilder($('.zoomToolbtns'), $('#originalPicBox img'), $('#zoomToolBox img'), 'img/goodsDetails/zoomTool0', '.png');
-	
-	chooseGoods($('#silverGoods'), $('#goldGoods'), $('.zoomToolbtns'), $('.zoomToolbtnsPic'), $('#originalPicBox img'), $('#zoomToolBox img'), 'img/goodsDetails/zoomTool0', '.png');
-	chooseGoods($('#goldGoods'), $('#silverGoods'), $('.zoomToolbtns'), $('.zoomToolbtnsPic'), $('#originalPicBox img'), $('#zoomToolBox img'), 'img/goodsDetails/zoomTool20', '.png');
+	zoomToolSilder($('.zoomToolbtns'), $('#originalPicBox img'), $('#zoomToolBox img'), imageUrl);
+
+	chooseGoods($('#silverGoods'), $('#goldGoods'), $('.zoomToolbtns'), $('.zoomToolbtnsPic'), $('#originalPicBox img'), $('#zoomToolBox img'), imageUrl);
+	chooseGoods($('#goldGoods'), $('#silverGoods'), $('.zoomToolbtns'), $('.zoomToolbtnsPic'), $('#originalPicBox img'), $('#zoomToolBox img'), imageUrl);
 	
 	// ****************** 导航栏吸顶 *********************
 	var distant = $('#bottomNav').offset().top;

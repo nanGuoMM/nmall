@@ -46,13 +46,15 @@
                     type:"get",
                     success: function (res) {
                         if (res.code == 0) {
-                            var img = $("#originalPicBox").children("img");
-                            $(".zoomToolbtnsPic").attr('src', '' + res.data.productImageUrl)
-                            img.attr('src', '' + res.data.productImageUrl)
+                            imageUrl = '' + res.data.productImageUrl;
+                            $("#originalPicBox").children("img").attr('src', '' + res.data.productImageUrl);
+                            $(".zoomToolbtnsPic").attr('src', '' + res.data.productImageUrl);
                             var name = $("#goodsInf").children("h1");
                             name.html('' + res.data.productTitle);
                             $(".detailsPrice").html('' + res.data.productUnitPrice);
                             $("#goodsDescribe").html('' + res.data.productDesc);
+                            // 触发事件并传递数据
+                            $(document).trigger('productDataLoaded', [res.data.productImageUrl]);
                         } else {
                             alert(res.msg)
                         }
@@ -92,7 +94,7 @@
             }
             $("#addBuycar").click(function () {
                 var id = getUrlParam('id');
-                var userId = sessionStorage.getItem("userId");
+                var userId = sessionStorage.userId;
                 if (userId && id) {
                     $.ajax({
                         url: "/addCart?productId=" + id + "&userId=" + userId, type: "get", success: function (res) {
@@ -403,18 +405,18 @@
                 <div id="zoomToolbtnsFBox">
                     <ul id="zoomToolbtnsBox">
                         <li class="zoomToolbtns"><a href="#"><img class="zoomToolbtnsPic"
-                                                                  src="img/goodsDetails/zoomToolBtns01.png" alt=""></a>
+                                                                  src="" alt=""></a>
                         </li>
                         <li class="zoomToolbtns"><a href=""><img class="zoomToolbtnsPic"
-                                                                 src="img/goodsDetails/zoomTool02.png" alt=""></a></li>
+                                                                 src="" alt=""></a></li>
                         <li class="zoomToolbtns"><a href=""><img class="zoomToolbtnsPic"
-                                                                 src="img/goodsDetails/zoomTool03.png" alt=""></a></li>
+                                                                 src="" alt=""></a></li>
                         <li class="zoomToolbtns"><a href=""><img class="zoomToolbtnsPic"
-                                                                 src="img/goodsDetails/zoomTool04.png" alt=""></a></li>
+                                                                 src="" alt=""></a></li>
                         <li class="zoomToolbtns"><a href=""><img class="zoomToolbtnsPic"
-                                                                 src="img/goodsDetails/zoomTool05.png" alt=""></a></li>
+                                                                 src="" alt=""></a></li>
                         <li class="zoomToolbtns"><a href=""><img class="zoomToolbtnsPic"
-                                                                 src="img/goodsDetails/zoomTool06.png" alt=""></a></li>
+                                                                 src="" alt=""></a></li>
                     </ul>
                 </div>
             </div>
