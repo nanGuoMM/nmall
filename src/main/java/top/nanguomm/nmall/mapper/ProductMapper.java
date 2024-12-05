@@ -12,4 +12,6 @@ public interface ProductMapper {
     List<Product> getProducts();
 
     List<Product> getProductsByCategoryId(@Param("categoryId") int categoryId);
+
+    Product getProductById(@Param("productId") int productId);
 }

@@ -25,4 +25,12 @@ public class ProductController {
 
        return Result.success(productService.getProductsByCategory(categoriesId));
     }
+
+    @GetMapping("/findProductById")
+    public Result findProductById(@RequestParam("id")Integer productId) {
+
+        log.info("productId{}", productId);
+
+       return Result.success(productService.getProductById(productId));
+    }
 }

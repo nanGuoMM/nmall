@@ -41,22 +41,22 @@
         });
 
         function SaveOrder() {
-            var order = {userId: users.user_id, productId: productId, quantity: quantity, unitPrice: unitPrice};
+            var order = {userId: user.userId, productId: productId, quantity: quantity, unitPrice: unitPrice};
             alert("ok")
-            // $.ajax({
-            //     url: "/orderOperat",
-            //     type: "POST",
-            //     data: order,
-            //     dataType: "json",
-            //     success: function (resp) {
-            //         console.log(resp);
-            //         if (resp.code == 200) {
-            //             location.href = resp.data;
-            //         } else {
-            //             alert(resp.msg)
-            //         }
-            //     }
-            // });
+            $.ajax({
+                url: "/order",
+                type: "POST",
+                data: order,
+                dataType: "json",
+                success: function (resp) {
+                    console.log(resp);
+                    if (resp.code == 0) {
+                        location.href = resp.data;
+                    } else {
+                        alert(resp.msg)
+                    }
+                }
+            });
         }
     </script>
 </head>

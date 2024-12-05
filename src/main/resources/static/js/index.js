@@ -1,4 +1,3 @@
-
 $(function() {
 // 动态请求后端获取热销商品
 	$.ajax({
@@ -140,7 +139,7 @@ $(function() {
 					"describ": item.productDesc,
 					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
 				}));
-			wellTabletInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				wellTabletInf = data// 后端需要返回一个对象集合（JSON对象数组）
 				// 渲染页面
 				createBigGoods(wellTabletInf, 'wellTabletGoods', $('#wellTabletBox'));
 			}
@@ -287,7 +286,7 @@ $(function() {
 											<p class="price goodsText">${data.price}</p>
 										</a>
 									</div>`;
-	    	fatherBox.append(goodsStr);
+			fatherBox.append(goodsStr);
 		});
 	}
 
@@ -302,7 +301,7 @@ $(function() {
 									<p class="price goodsText">${data.price}</p>
 								</a>
 							</div>`;
-	    	fatherBox.append(goodsStr);
+			fatherBox.append(goodsStr);
 		});
 	}
 
@@ -316,9 +315,9 @@ $(function() {
 	// 去除动态创建商品的左外边距
 	function removeLeftMargin(goodsClassName, num1, num2, num3){
 		$.each(mobilePhoneInf, function(index, data){
-	    	if (index == num1 || index == num2 || index == num3 ) {
-	    		goodsClassName.eq(index).css('marginLeft', '0');
-	    	}
+			if (index == num1 || index == num2 || index == num3 ) {
+				goodsClassName.eq(index).css('marginLeft', '0');
+			}
 		});
 	}
 
@@ -336,9 +335,9 @@ $(function() {
 		picBtn.each(function(index, element){
 			// console.log(element);
 			$(element).mouseenter(function() {
-				clearInterval(timer); 
+				clearInterval(timer);
 				changePic(index);
-				inter(); 
+				inter();
 				iNow = index;
 			})
 		})
@@ -350,7 +349,7 @@ $(function() {
 				if (index == num) {
 					$(element).css('opacity', '1');
 					picBtn.eq(index).addClass('silderBtnActic');
-				} 
+				}
 				else {
 					$(element).css('opacity', '0');
 				}
@@ -359,54 +358,54 @@ $(function() {
 
 		// 自动轮播
 		function inter() {
-    		timer = setInterval(function() {
-    			iNow++;
-    			if (iNow > silderPic.length-1) {
-    				iNow = 0;
-    			}
-                changePic(iNow);
-    		}, 2000);
-    	}
-
-    	beforeAndNext($('#before'), $('#next'), $('.silderPic'));
-    	// 前后按钮
-    	function beforeAndNext(before, next, silderPic) {
-			// 向前
-	    	$('#before').click(function() {
-	    		iNow--;
-	    		if (iNow < 0 ) {
-	    			iNow = silderPic.length - 1;
-	    		}
-	    		clearInterval(timer);
-	    		changePic(iNow);
-	    		inter();
-	    	})
-
-	    	// 向后
-	    	next.click(function(){
-	    		iNow++;
-	    		if (iNow > silderPic.length - 1 ) {
-	    			iNow = 0;
-	    		}
-	    		clearInterval(timer);
-	    		changePic(iNow);
-	    		inter();
-	    	})
+			timer = setInterval(function() {
+				iNow++;
+				if (iNow > silderPic.length-1) {
+					iNow = 0;
+				}
+				changePic(iNow);
+			}, 2000);
 		}
 
-    	//鼠标进入图片，停止播放
+		beforeAndNext($('#before'), $('#next'), $('.silderPic'));
+		// 前后按钮
+		function beforeAndNext(before, next, silderPic) {
+			// 向前
+			$('#before').click(function() {
+				iNow--;
+				if (iNow < 0 ) {
+					iNow = silderPic.length - 1;
+				}
+				clearInterval(timer);
+				changePic(iNow);
+				inter();
+			})
+
+			// 向后
+			next.click(function(){
+				iNow++;
+				if (iNow > silderPic.length - 1 ) {
+					iNow = 0;
+				}
+				clearInterval(timer);
+				changePic(iNow);
+				inter();
+			})
+		}
+
+		//鼠标进入图片，停止播放
 		function mouseEnterStop(){
-		    silderPic.on('mouseenter',function(){
-		        clearInterval(timer);
-		    })
+			silderPic.on('mouseenter',function(){
+				clearInterval(timer);
+			})
 		}
 
 		//鼠标离开图片，继续播放
 		function mouseLeavePlay(){
-		    silderPic.on('mouseleave',function(){
-		        inter();
-		    })
-		}    	
+			silderPic.on('mouseleave',function(){
+				inter();
+			})
+		}
 	}
 
 	// 水平轮播有终点
@@ -414,17 +413,17 @@ $(function() {
 	function levelEndSilder(boxLength, brforeBtn, nextBtn, bigBox, goodsBox, maxLeft, photoNum) {
 		// 向前	
 		var levelEndSilderIndex = 0;
-		var levelEndSilderBoxLeft;		
-		brforeBtn.click(function() {					
-			levelEndSilderIndex--;		
+		var levelEndSilderBoxLeft;
+		brforeBtn.click(function() {
+			levelEndSilderIndex--;
 			levelEndSilderBtnDisplay();
 			changeLeft();
-    	});
+		});
 
-    	// 向后
-    	nextBtn.click(function() {	
+		// 向后
+		nextBtn.click(function() {
 			levelEndSilderIndex++;
-			levelEndSilderBtnDisplay();	
+			levelEndSilderBtnDisplay();
 			changeLeft();
 		});
 
@@ -436,32 +435,32 @@ $(function() {
 			} else {
 				levelEndSilderBoxLeft = -levelEndSilderBoxLeft;
 			}
-    		bigBox.css('left', levelEndSilderBoxLeft + 'px');
+			bigBox.css('left', levelEndSilderBoxLeft + 'px');
 		}
 
 		function levelEndSilderBtnDisplay() {
 			if (levelEndSilderIndex >= goodsBox.length/photoNum -1  ) {
 				nextBtn.css('display', 'none');
 			} else {
-				nextBtn.css('display', 'block');	
+				nextBtn.css('display', 'block');
 			}
 			if (levelEndSilderIndex <= 0 ) {
 				brforeBtn.css('display', 'none');
 			} else {
-				brforeBtn.css('display', 'block');	
+				brforeBtn.css('display', 'block');
 			}
 		}
 	}
 
 	// 公告栏信息轮播
-	function noticeSilder(){	
+	function noticeSilder(){
 		var noticeTimer;
 		inter();
 		mouseEnterStop();
 		mouseLeavePlay();
 		function inter(){
-				noticeTimer =  setInterval(function() {
-				noticIndex++;		
+			noticeTimer =  setInterval(function() {
+				noticIndex++;
 				if (noticIndex >= $('.markNotics').length) {
 					noticIndex = 0;
 					$('#markNoticsTextBox').css('transition','');
@@ -472,28 +471,28 @@ $(function() {
 				$('#markNoticsTextBox').css('top', nowTop + 'px');
 			},1500);
 		}
-		
+
 		//鼠标点击信息，停止播放
 		function mouseEnterStop(){
-		    $('.markNotics').on('mouseenter',function(){
-		        clearInterval(noticeTimer);
-		    })
+			$('.markNotics').on('mouseenter',function(){
+				clearInterval(noticeTimer);
+			})
 		}
 
 		//鼠标离开信息，继续播放
 		function mouseLeavePlay(){
-		    $('.markNotics').on('mouseleave',function(){
-		        inter();
-		    })
+			$('.markNotics').on('mouseleave',function(){
+				inter();
+			})
 		}
 	}
 
-    // *********** 关闭首页广告 ****************
+	// *********** 关闭首页广告 ****************
 	$('#close').click(function(){
 		$('#topAd').css('display', 'none');
 	});
 
-    // ********** 首页透明度轮播 *************
+	// ********** 首页透明度轮播 *************
 	silder($('.silderBtn'), $('.silderPic'));
 
 	// *********** 首页广告透明度轮播 *************
@@ -516,7 +515,7 @@ $(function() {
 	$.each(noticInf, function(index, data){
 		if (index < 4) {
 			$('.markNotics').eq(index).html(data);
-		}		
+		}
 	});
 	var noticIndex = 0;
 	noticeSilder();
@@ -563,11 +562,11 @@ $(function() {
 	// **************** more 品牌配件 ******************
 	//createLittleGoods(moreBrandPartsInfo,'moreBrandPartsHomeBox', 'moreBrandPartsGoods', 'moreBrandPartsDescrib', $('#moreBrandPartsBox'));
 	levelEndSilder(1210,$('#moreBrandPartsBefore'),$('#moreBrandPartsNext'),$('#moreBrandPartsBox'),$('.moreBrandPartsGoodsBox'),1616);
-    
-    // ************ 回到顶部 ***************
+
+	// ************ 回到顶部 ***************
 	clickPoint($('#goTop'), 0);
 	scrollDisplay($('#goTop'), 500,'display', 'block','none');
-	
+
 	// 锚点实现
 	// 01.点击，实现跳转
 	// 02.根据scrollTop值自动改变相应的样式
@@ -595,66 +594,66 @@ $(function() {
 	}
 
 	function autoChangePointStyle() {
-		$(document).scroll(function() {	
+		$(document).scroll(function() {
 			for (var i = 0; i < pointTop.length; i++) {
 				if ($(document).scrollTop() > pointTop[i]-10 ) {
-					changePointStyle(i, $('.pointBtns'), $('.pointBtnsLinks'), $('.pointBtnsBorder'));        	
-		        } 
+					changePointStyle(i, $('.pointBtns'), $('.pointBtnsLinks'), $('.pointBtnsBorder'));
+				}
 			}
 		})
 	}
-	
+
 	// 控制显示隐藏
 	function scrollDisplay(evName, boundary, cssName, cssNum1, cssNum2) {
-	    $(window).scroll(function () {
-	        if ($(window).scrollTop() >= boundary) {
-	            evName.css(cssName, cssNum1);
-	        } else {
-	            evName.css(cssName, cssNum2);
-	        }
-	    });
-    }
-    function scrollDisplayDrop(evName, boundary, cssName, cssNum1) {
-	    $(window).scroll(function () {
-	        if ($(window).scrollTop() >= boundary) {
-	            evName.css(cssName, cssNum1);
-	        }
-	    });
-    }
+		$(window).scroll(function () {
+			if ($(window).scrollTop() >= boundary) {
+				evName.css(cssName, cssNum1);
+			} else {
+				evName.css(cssName, cssNum2);
+			}
+		});
+	}
+	function scrollDisplayDrop(evName, boundary, cssName, cssNum1) {
+		$(window).scroll(function () {
+			if ($(window).scrollTop() >= boundary) {
+				evName.css(cssName, cssNum1);
+			}
+		});
+	}
 
-    // **************** 右侧锚点 **********************
-    var pointTop = [2100, 3380, 4040, 4710, 5665, 6770, 7710];
+	// **************** 右侧锚点 **********************
+	var pointTop = [2100, 3380, 4040, 4710, 5665, 6770, 7710];
 	for (var i = 0; i < $('.pointBtns').length; i++) {
 		clickPoint($('.pointBtns').eq(i), pointTop[i]);
 	}
-    autoChangePointStyle();
-    scrollDisplay($('#rightPoint'), 2000,'right','0px','-270px');
-    scrollDisplayDrop($('#rightPoint'), 8300,'right','-270px');
+	autoChangePointStyle();
+	scrollDisplay($('#rightPoint'), 2000,'right','0px','-270px');
+	scrollDisplayDrop($('#rightPoint'), 8300,'right','-270px');
 
 
-   	// 搜索框获取焦点与失去焦点
-   	$('#searchBox').focus(function() {
-   		$(this).css('border', '1px solid #DDD');
-   		$('#firstSearchText').css('display','none');
-   		$('#secondSearchText').css('display','none');
-   		$('.searchHistory').css('display','block');
-   	})
-   
-   	$('.searchHistory ul li').click(function() {
-   		$('#searchBox').val($(this).html()).css('border', '1px solid #FFFFFFFF');  		
-   		$('.searchHistory').css('display','none');
+	// 搜索框获取焦点与失去焦点
+	$('#searchBox').focus(function() {
+		$(this).css('border', '1px solid #DDD');
+		$('#firstSearchText').css('display','none');
+		$('#secondSearchText').css('display','none');
+		$('.searchHistory').css('display','block');
+	})
 
-   	})
-  
+	$('.searchHistory ul li').click(function() {
+		$('#searchBox').val($(this).html()).css('border', '1px solid #FFFFFFFF');
+		$('.searchHistory').css('display','none');
+
+	})
+
 	$('#searchBox').blur(function() {
-		 setTimeout(function() { 	// 解决blur事件和click事件冲突
-	   		$(this).css('border', '1px solid #FFFFFFFF');
-	   		$('.searchHistory').css('display','none');
-	   		if($('#searchBox').val() == '') {
+		setTimeout(function() { 	// 解决blur事件和click事件冲突
+			$(this).css('border', '1px solid #FFFFFFFF');
+			$('.searchHistory').css('display','none');
+			if($('#searchBox').val() == '') {
 				$('#firstSearchText').css('display','block');
 				$('#secondSearchText').css('display','block');
-	   		} 		
-   		},100);
-   	});
-   
+			}
+		},100);
+	});
+
 })

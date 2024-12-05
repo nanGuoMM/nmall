@@ -47,12 +47,12 @@
                     success: function (res) {
                         if (res.code == 0) {
                             var img = $("#originalPicBox").children("img");
-                            $(".zoomToolbtnsPic").attr('src', '' + res.data.product_image_url)
-                            img.attr('src', '' + res.data.product_image_url)
+                            $(".zoomToolbtnsPic").attr('src', '' + res.data.productImageUrl)
+                            img.attr('src', '' + res.data.productImageUrl)
                             var name = $("#goodsInf").children("h1");
-                            name.html('' + res.data.product_title);
-                            $(".detailsPrice").html('' + res.data.product_unit_price);
-                            $("#goodsDescribe").html('' + res.data.product_desc);
+                            name.html('' + res.data.productTitle);
+                            $(".detailsPrice").html('' + res.data.productUnitPrice);
+                            $("#goodsDescribe").html('' + res.data.productDesc);
                         } else {
                             alert(res.msg)
                         }
@@ -388,12 +388,12 @@
     <section id="goodDetailsTop" class="c">
         <div id="goodsPhoto">
             <div id="originalPicBox">
-                <img src="img/goodsDetails/zoomTool01.png" alt="">
+                <img src="" alt="">
                 <div id="square"></div>
             </div>
 
             <div id="zoomToolBox">
-                <img src="img/goodsDetails/zoomTool01.png" alt="">
+                <img src="" alt="">
             </div>
 
             <div id="smallPicList">

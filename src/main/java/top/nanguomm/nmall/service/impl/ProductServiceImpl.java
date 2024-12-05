@@ -6,7 +6,7 @@ import top.nanguomm.nmall.entity.Product;
 import top.nanguomm.nmall.mapper.ProductMapper;
 import top.nanguomm.nmall.service.ProductService;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @Service
@@ -24,5 +24,10 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductsByCategory(Integer categoryId) {
 
         return productMapper.getProductsByCategoryId(categoryId);
+    }
+
+    @Override
+    public Product getProductById(Integer productId) {
+        return productMapper.getProductById(productId);
     }
 }

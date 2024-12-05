@@ -32,7 +32,11 @@
     </select>
 
     <select id="getProductsByCategoryId" resultMap="productResultMap">
-        select <include refid="Base_Column_List"></include> from products where categories_id = #{categoryId}
+        select <include refid="Base_Column_List"/> from products where categories_id = #{categoryId}
+    </select>
+
+    <select id="getProductById" resultMap="productResultMap">
+        select <include refid="Base_Column_List"/> from products where product_id = #{productId}
     </select>
 
 </mapper>
