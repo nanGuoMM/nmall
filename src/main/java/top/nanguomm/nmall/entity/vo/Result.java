@@ -1,4 +1,4 @@
-package top.nanguomm.nmall.entity;
+package top.nanguomm.nmall.entity.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

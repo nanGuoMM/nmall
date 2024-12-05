@@ -74,7 +74,7 @@ $(function() {
 		var email = $('#emailInput').val();
 		var password = $('#passwdInput').val();
 		// 将参数封装为js表单对象
-		var userForm = {phone:phone,email:email,password:password};
+		var userForm = {userTel:phone,userEmail:email,userPwd:password};
 		// 表单参数传递给后端,搞清楚几个问题：后端接口、后端接收参数方式、如何传递给后端
 		/**
 		 * 前端传递参数给后端，主要有两种方式：

@@ -19,7 +19,7 @@
                       //将对象转为js对象
 					  var user = JSON.parse(obj);
 					  //向主页的登录按钮追加登录成功后的展示信息
-                      $("#show_userinfo").append(user.user_tel);
+                      $("#show_userinfo").append(user.userTel);
 					  $("#show_userinfo").after("<a href='javascript:;' id='logout'>退出</a>");
 				 }else{
 					 $("#show_userinfo").append("请登录")

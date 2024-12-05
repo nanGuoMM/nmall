@@ -3,12 +3,13 @@ package top.nanguomm.nmall.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.nanguomm.nmall.entity.Result;
+import top.nanguomm.nmall.entity.vo.Result;
 import top.nanguomm.nmall.entity.User;
 import top.nanguomm.nmall.service.UserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 @Slf4j
 public class UserController {
 
@@ -22,12 +23,15 @@ public class UserController {
         if(user == null) {
             return Result.error("账号或密码错误");
         }
+
+        //擦除密码
+        user.setUserPwd(null);
         return Result.success(user);
     }
 
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
-        log.info(user.getEmail() + ":" + user.getPassword() + ":" + user.getPhone());
+        log.info(user.getUserEmail() + ":" + user.getUserPwd() + ":" + user.getUserTel());
         if(userService.register(user)) {
             return Result.success();
         }

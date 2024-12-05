@@ -1,5 +1,280 @@
+
 $(function() {
-	// 动态创建小商品 
+// 动态请求后端获取热销商品
+	$.ajax({
+		url:"/product/recommendList",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				recommendGoodsInfo = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createLittleGoods(recommendGoodsInfo,'recommendationGoodsBox', 'recommendGoods', 'recommendGoodsDescrib', $('#recommendationBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=2",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				moreSmartWearInfo = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createLittleGoods(moreSmartWearInfo,'moreSmartWearHomeBox', 'moreSmartHomeGoods', 'moreSmartHomeDescrib', $('#moreSmartHomeBox'));
+			}
+		}
+	})
+
+// 动态请求智能穿戴
+	$.ajax({
+		url:"/product/category?categoriesId=3",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				moreSmartHomeInfo = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createLittleGoods(moreSmartHomeInfo,'moreSmartWearHomeBox', 'moreSmartHomeGoods', 'moreSmartHomeDescrib', $('#moreSmartHomeBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=4",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				hotItemGoodsInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(hotItemGoodsInf, 'hotItemGoods', $('#hotItem'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=2",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				mobilePhoneInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(mobilePhoneInf, 'mobilePhoneGoods', $('#mobilePhoneBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=3",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				personalComputerInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(personalComputerInf, 'personalComputerGoods', $('#personalComputerBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=7",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+			wellTabletInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(wellTabletInf, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=6",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				smartWearInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(smartWearInf, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=8",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				smartHomeInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(smartHomeInf, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=9",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				hotPartsInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(hotPartsInf, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=7",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				moreHotPartsInfo = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(moreHotPartsInfo, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=7",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				brandPartsInf = data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(brandPartsInf, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+// 动态请求智能家居
+	$.ajax({
+		url:"/product/category?categoriesId=6",//提交后端接口URI地址
+		type:"get",//提交方式get post delete put
+		dataType:"json",//后端返回的结果数据类型:json、text、html、javascript.....
+		success:function(res){//访问成功后回调函数--res表示后端返回的结果所对应的变量名 res = resultMap
+			if(res.code == 0){//登录成功
+				// 因为后端响应的数据和前端需要的数据不一致，需要遍历解析处理
+				let data = res.data.map(item => ({
+					"src": item.productImageUrl,
+					"name": item.productTitle,
+					"describ": item.productDesc,
+					"price": `￥${item.productUnitPrice.toFixed(2)}` // 使用 toFixed(2) 保留两位小数，并添加 ￥ 符号
+				}));
+				moreBrandPartsInfo= data// 后端需要返回一个对象集合（JSON对象数组）
+				// 渲染页面
+				createBigGoods(moreBrandPartsInfo, 'wellTabletGoods', $('#wellTabletBox'));
+			}
+		}
+	})
+
+
+	// 动态创建小商品
 	function createLittleGoods(arrayInfo,boxNewClass, goodsNewClass, describNewClass, fatherBox) {
 		$.each(arrayInfo, function(index, data){
 			var goodsStr = `<div class="${boxNewClass} levelSilderBox">
@@ -225,14 +500,14 @@ $(function() {
 	silder($('.adSilderBtn'), $('.adPic'));
 
 	// *********** 精品推荐 *************	
-	createLittleGoods(recommendGoodsInfo,'recommendationGoodsBox', 'recommendGoods', 'recommendGoodsDescrib', $('#recommendationBox'));
+	//createLittleGoods(recommendGoodsInfo,'recommendationGoodsBox', 'recommendGoods', 'recommendGoodsDescrib', $('#recommendationBox'));
 	removeEveryDotClass($('.recommendationGoodsBox'), 'levelSilderBox'); // 保持大小不变，除去下面两个小的轮播的样式
 	removeEveryDotClass($('.recommendGoods'), 'levelSilderLittleBox');
 	removeEveryDotClass($('.recommendGoodsDescrib'), 'levelSilderBoxDescrib');
 	levelEndSilder(1206,$('#recommendBefore'),$('#recommendNext'),$('#recommendationBox'),$('.recommendationGoodsBox'),3630,5);
 
 	// **************** more 智能穿戴 ******************
-	createLittleGoods(moreSmartWearInfo,'moreSmartWearGoodsBox', 'moreSmartWearGoods', 'moreSmartWearDescrib', $('#moreSmartWearBox'));
+	//createLittleGoods(moreSmartWearInfo,'moreSmartWearGoodsBox', 'moreSmartWearGoods', 'moreSmartWearDescrib', $('#moreSmartWearBox'));
 	levelEndSilder(1210,$('#moreSmartWearBefore'),$('#moreSmartWearNext'),$('#moreSmartWearBox'),$('.moreSmartWearGoodsBox'),1616,6);
 
 	// ************ 公告栏信息轮播 ***********
@@ -247,46 +522,46 @@ $(function() {
 	noticeSilder();
 
 	// **************** more 智能家居 ******************
-	createLittleGoods(moreSmartHomeInfo,'moreSmartWearHomeBox', 'moreSmartHomeGoods', 'moreSmartHomeDescrib', $('#moreSmartHomeBox'));
+	//createLittleGoods(moreSmartHomeInfo,'moreSmartWearHomeBox', 'moreSmartHomeGoods', 'moreSmartHomeDescrib', $('#moreSmartHomeBox'));
 	levelEndSilder(1210,$('#moreSmartHomeBefore'),$('#moreSmartHomeNext'),$('#moreSmartHomeBox'),$('.moreSmartHomeGoodsBox'),1616);
 
 	// *********** 热销单品 *************
-	createBigGoods(hotItemGoodsInf, 'hotItemGoods', $('#hotItem'));
+	//createBigGoods(hotItemGoodsInf, 'hotItemGoods', $('#hotItem'));
 
 	// **************** 手机 ******************
-	createBigGoods(mobilePhoneInf, 'mobilePhoneGoods', $('#mobilePhoneBox'));
+	//createBigGoods(mobilePhoneInf, 'mobilePhoneGoods', $('#mobilePhoneBox'));
 	removeLeftMargin($('.mobilePhoneGoods'), 4, 9, 14);
 
 	// **************** 笔记本电脑 ******************
-	createBigGoods(personalComputerInf, 'personalComputerGoods', $('#personalComputerBox'));
+	//createBigGoods(personalComputerInf, 'personalComputerGoods', $('#personalComputerBox'));
 	removeLeftMargin($('.personalComputerGoods'), 4, 4, 4);
 
 	// **************** 精品平板 ******************
-	createBigGoods(wellTabletInf, 'wellTabletGoods', $('#wellTabletBox'));
+	//createBigGoods(wellTabletInf, 'wellTabletGoods', $('#wellTabletBox'));
 	removeLeftMargin($('.wellTabletGoods'), 4, 4, 4);
 
 	// **************** 智能穿戴 ******************
-	createBigGoods(smartWearInf, 'smartWearGoods', $('#smartWearBox'));
+	//createBigGoods(smartWearInf, 'smartWearGoods', $('#smartWearBox'));
 	removeLeftMargin($('.smartWearGoods'), 3, 3, 3);
 
 	// **************** 智能家居 ******************
-	createBigGoods(smartHomeInf, 'smartHomeGoods', $('#smartHomeBox'));
+	//createBigGoods(smartHomeInf, 'smartHomeGoods', $('#smartHomeBox'));
 	removeLeftMargin($('.smartHomeGoods'), 3, 3, 3);
 
 	// **************** 热销配件 ******************
-	createBigGoods(hotPartsInf, 'hotPartsGoods', $('#hotPartsBox'));
+	//createBigGoods(hotPartsInf, 'hotPartsGoods', $('#hotPartsBox'));
 	removeLeftMargin($('.hotPartsGoods'), 3, 3, 3);
 
 	// **************** more 热销配件 ******************
-	createLittleGoods(moreHotPartsInfo,'moreHotPartsHomeBox', 'moreHotPartsGoods', 'moreHotPartsDescrib', $('#moreHotPartsBox'));
+	//createLittleGoods(moreHotPartsInfo,'moreHotPartsHomeBox', 'moreHotPartsGoods', 'moreHotPartsDescrib', $('#moreHotPartsBox'));
 	levelEndSilder(1210,$('#moreHotPartsBefore'),$('#moreHotPartsNext'),$('#moreHotPartsBox'),$('.moreHotPartsGoodsBox'),1616);
 
 	// **************** 品牌配件 ******************
-	createBigGoods(brandPartsInf, 'brandPartsGoods', $('#brandPartsBox'));
+	//createBigGoods(brandPartsInf, 'brandPartsGoods', $('#brandPartsBox'));
 	removeLeftMargin($('.brandPartsGoods'), 3, 3, 3);
 
 	// **************** more 品牌配件 ******************
-	createLittleGoods(moreBrandPartsInfo,'moreBrandPartsHomeBox', 'moreBrandPartsGoods', 'moreBrandPartsDescrib', $('#moreBrandPartsBox'));
+	//createLittleGoods(moreBrandPartsInfo,'moreBrandPartsHomeBox', 'moreBrandPartsGoods', 'moreBrandPartsDescrib', $('#moreBrandPartsBox'));
 	levelEndSilder(1210,$('#moreBrandPartsBefore'),$('#moreBrandPartsNext'),$('#moreBrandPartsBox'),$('.moreBrandPartsGoodsBox'),1616);
     
     // ************ 回到顶部 ***************
