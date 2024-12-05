@@ -26,7 +26,7 @@
                 //将对象转为js对象
                 var user = JSON.parse(obj);
                 //向主页的登录按钮追加登录成功后的展示信息
-                $("#show_userinfo").append(user.user_tel);
+                $("#show_userinfo").append(user.userTel);
                 $("#show_userinfo").after("<a href='javascript:;' id='logout'>退出</a>");
             }else{
                 $("#show_userinfo").append("请登录")
@@ -61,28 +61,24 @@
                     }
                 })
                 $("#buyNow").click(function () {
-                    var obj = localStorage.getItem("user");
+                    var obj = JSON.parse(localStorage.getItem("user"));
                     if (obj == null) {
                         window.location.href = "/login.html";
                     } else {
-                        var price = $(".detailsPrice").html();
                         var num = $("#goodsNum").val();
-                        var total = price * num;
-                        var user = JSON.parse(obj);
+                        var id = getUrlParam('id');
                         $.ajax({
                             url: "/order/create",
                             type: "post",
                             dataType: "json",
                             data: {
-                                "pay_total_price": total,
-                                "user_id": user.user_id,
-                                "product_id": id,
-                                "unit_price": price,
+                                "userId": obj.userId,
+                                "productId": id,
                                 "quantity": num
                             },
                             success: function (res) {
                                 if (res.code == 0) {
-                                    window.location.href = "/orderConfirm.html?orderId=" + res.data;
+                                    window.location.href = "/orderConfirm.html?orderId=" + res.data.userId;
                                 } else {
                                     alert(res.data.msg);
                                 }
@@ -94,10 +90,11 @@
             }
             $("#addBuycar").click(function () {
                 var id = getUrlParam('id');
-                var userId = sessionStorage.userId;
-                if (userId && id) {
+                var user = JSON.parse(localStorage.getItem("user"));
+                var proNum = $("#goodsNum").val();
+                if (user && id) {
                     $.ajax({
-                        url: "/addCart?productId=" + id + "&userId=" + userId, type: "get", success: function (res) {
+                        url: "/order/addPro?productId=" + id + "&userId=" + user.userId + "&quantity=" + proNum, type: "get", success: function (res) {
                             alert(res.msg);
                         }
                     })
@@ -255,7 +252,7 @@
                     </div>
                 </li>
                 <li id="buyCarBox" class="topLinks">
-                    <a href="" id="buyCarLink">
+                    <a href="/shopCar.html" id="buyCarLink" target="_blank">
                         购物车(0)
                     </a>
                     <p class="mySecondMemu myBuyCar">

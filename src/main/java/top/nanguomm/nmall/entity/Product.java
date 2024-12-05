@@ -53,7 +53,7 @@ public class Product implements Serializable {
     /**
      * 创建人
      */
-    private String createBy;
+    private Integer createBy;
     /**
      * 创建时间
      */
@@ -61,7 +61,7 @@ public class Product implements Serializable {
     /**
      * 更新人
      */
-    private String updateBy;
+    private Integer updateBy;
     /**
      * 更新时间
      */

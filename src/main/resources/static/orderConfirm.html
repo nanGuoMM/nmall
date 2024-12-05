@@ -187,7 +187,7 @@
                 $(".detail").click(function () {
                     $(".orderdetailMain").children(".info").remove();
                     $.ajax({
-                        url: "/getOrderDetailByOrderId?orderId=" + orderId, type: "get", success: function (res) {
+                        url: "/order/getOrderDetailByOrderId?orderId=" + orderId, type: "get", success: function (res) {
                             if (res) {
                                 var data = res.data;
                                 $.each(data, function (index, info) {

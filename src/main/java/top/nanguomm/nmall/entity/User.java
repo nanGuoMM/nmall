@@ -45,7 +45,7 @@ public class User implements Serializable {
     /**
      * 创建人
      */
-    private String createBy;
+    private Integer createBy;
     /**
      * 创建时间
      */
@@ -53,7 +53,7 @@ public class User implements Serializable {
     /**
      * 更新人
      */
-    private String updateBy;
+    private Integer updateBy;
     /**
      * 更新时间
      */

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+    <link rel="stylesheet" href="css/shopCar.css">
+    <link rel="shortcut icon" href="img/index/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>购物车</h1>
+        </header>
+        <div class="cart">
+            <h2>我的购物车</h2>
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>总价</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 动态生成订单内容 -->
+                </tbody>
+            </table>
+            <p class="total">总价: ￥<span id="total-price">0.00</span></p>
+        </div>
+    </div>
+
+    <script src="js/shopCar.js"></script>
+</body>
+</html>
