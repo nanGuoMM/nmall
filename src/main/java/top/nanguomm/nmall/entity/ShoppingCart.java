@@ -14,5 +14,9 @@ public class ShoppingCart {
     private Date addTime; // 添加时间
     private Date updateTime; // 更新时间
     private byte delFlag;      // 删除标记（0表示未删除，1表示已删除）
+    private Double price;
+    private Integer createBy;
+    private Date createTime;
+    private Integer updateBy;
 
 }

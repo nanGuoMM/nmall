@@ -17,22 +17,7 @@ public class OderServiceImpl implements OderService {
     @Autowired
     private OderMapper oderMapper;
 
-    @Autowired
-    private ProductMapper productMapper;
-
-    @Override
-    public void add(@ModelAttribute Order order) {
-       //计算价钱
-        Product product = productMapper.getProductById(order.getProductId());
-        Double price = order.getQuantity() * product.getProductUnitPrice();
-
-        order.setCreateBy(order.getUserId());
-        order.setPrice(price);
-
-        order.setStatus(0);
-
-        oderMapper.add(order);
-    }
+    @Autowired private ProductMapper productMapper;
 
     @Override
     public Order create(Order order) {

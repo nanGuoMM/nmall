@@ -7,14 +7,18 @@
         <result property="productId" column="product_id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="quantity" column="quantity" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
         <result property="addTime" column="add_time" jdbcType="TIMESTAMP"/>
         <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
 
     <sql id="Base_Column_List">
-        cart_id, user_id, product_id, quantity, add_time, update_time, del_flag
+        cart_id, user_id, product_id, quantity, add_time, update_time, del_flag,price,update_by,create_by,create_time
     </sql>
 
     <insert id="add">
