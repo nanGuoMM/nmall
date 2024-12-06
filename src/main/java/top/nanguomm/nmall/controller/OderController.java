@@ -16,13 +16,6 @@ public class OderController {
     @Autowired
     private OderService orderService;
 
-    @GetMapping("/addPro")
-    public Result addPro(Order order) {
-        log.info("order:{}", order);
-        orderService.add(order);
-        return Result.success();
-    }
-
     @PostMapping("/create")
     public Result create(Order order) {
        Order re = orderService.create(order);

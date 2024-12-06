@@ -94,7 +94,7 @@
                 var proNum = $("#goodsNum").val();
                 if (user && id) {
                     $.ajax({
-                        url: "/order/addPro?productId=" + id + "&userId=" + user.userId + "&quantity=" + proNum, type: "get", success: function (res) {
+                        url: "/shopCar/add?productId=" + id + "&userId=" + user.userId + "&quantity=" + proNum, type: "get", success: function (res) {
                             alert(res.msg);
                         }
                     })

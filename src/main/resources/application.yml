@@ -64,6 +64,7 @@ spring:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 使用控制台输出SQL
+    map-underscore-to-camel-case: true
   mapper-locations: classpath:/mapper/**/*.xml  # 指定xml包
 
 # 日志配置
